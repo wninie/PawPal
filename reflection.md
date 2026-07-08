@@ -2,6 +2,8 @@
 
 ## 1. System Design
 
+The three core actions a user should be able to preform is creaeting a profile(entering pet info and more), manage task (add, edit and remove care taking task), and generate a plan.
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.

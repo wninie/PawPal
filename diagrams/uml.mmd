@@ -1,15 +1,59 @@
 classDiagram
-    %% Replace the placeholders below with your actual classes, attributes, methods, and relationships.
+    %% PawPal — pet care app class diagram (revised)
     %% Keep this file updated so it matches your final implementation.
 
-    class ClassName {
-        +type attribute
-        +method() returnType
+    class Owner {
+        +string ownerId
+        +string name
+        +string email
+        +string phone
+        +createProfile() void
+        +updateProfile() void
     }
 
-    class AnotherClass {
-        +type attribute
-        +method() returnType
+    class Pet {
+        +string petId
+        +string name
+        +string species
+        +string breed
+        +int age
+        +float weight
+        +string[] behaviors
+        +createProfile() void
+        +updateProfile() void
+        +hasBehavior(string behavior) bool
     }
 
-    ClassName --> AnotherClass : relationship
+    class Task {
+        +string taskId
+        +string title
+        +string description
+        +string category
+        +DateTime dueTime
+        +bool completed
+        +addTask() void
+        +editTask() void
+        +removeTask() void
+    }
+
+    class Plan {
+        +string planId
+        +Date date
+        +string rationale
+        +generateDailyPlan() Plan
+        +explainReasons() string
+    }
+
+    class Constraints {
+        +string constraintId
+        +int maxDailyTasks
+        +TimeWindow[] availableTimes
+        +string[] priorities
+        +float budget
+        +validate(Plan plan) bool
+    }
+
+    Owner "1" --> "*" Pet : owns
+    Pet "1" --> "*" Plan : hasPlan
+    Plan "1" --> "*" Task : includes
+    Pet "1" --> "1" Constraints : constrainedBy
