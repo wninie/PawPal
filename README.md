@@ -61,10 +61,10 @@ Selected 1 of 1 due task(s) for pet2. Ordered by priority: eat, sleep, water. Re
 ```
 
 ## 🧪 Testing PawPal+
-
+My confidence level is 4 based off of the test results.
 ```bash
 # Run the full test suite:
-pytest
+python -m pytest
 
 # Run with coverage:
 pytest --cov
@@ -73,7 +73,12 @@ pytest --cov
 Sample test output:
 
 ```
-# Paste your pytest output here
+platform win32 -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\lnini\OneDrive\Desktop\codepath AI110\PawPal
+plugins: anyio-4.14.1
+collected 36 items                                                                                                                               
+
+test\test_pawpal.py ....................................                                                                                   [100%]
 ```
 
 ## 📐 Smarter Scheduling
