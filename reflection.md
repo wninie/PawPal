@@ -7,12 +7,21 @@ The three core actions a user should be able to preform is creaeting a profile(e
 **a. Initial design**
 
 - Briefly describe your initial UML design.
+The UML is split into 5 categories: owner, pet, task, plan, constraints. The relationship between the 5 is: Owner -> Pet -> constraints and (plan -> task). And for example, if there are multiple pets then each constraint, plan, and task will be for that pet only.
 - What classes did you include, and what responsibilities did you assign to each?
+I included the five classes below:
+- Owner: human identity, contact info
+- Pet: Breed, weight, age, behaviors
+- Constraint: rules that a plan must follow for the pet, max daily task, time windows, budget, priority stuff.
+- Plan: generating a plan and why certain task were chosen, what a day of taking care of the pet might look like.
+- Task: single action item that is in the plan. Ex. Feeding, walking, medicine. 
 
 **b. Design changes**
 
 - Did your design change during implementation?
+Yes!
 - If yes, describe at least one change and why you made it.
+One change wwwas that initially the onwer.pet had no pet list even though the UML edge has Owner -> pet: owns. There were more changes like this. 
 
 ---
 

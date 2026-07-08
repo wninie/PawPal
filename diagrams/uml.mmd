@@ -7,8 +7,11 @@ classDiagram
         +string name
         +string email
         +string phone
+        +Pet[] pets
         +createProfile() void
         +updateProfile() void
+        +addPet(Pet pet) void
+        +removePet(string petId) void
     }
 
     class Pet {
@@ -19,9 +22,15 @@ classDiagram
         +int age
         +float weight
         +string[] behaviors
+        +Task[] tasks
+        +Plan[] plans
+        +Constraints constraints
         +createProfile() void
         +updateProfile() void
         +hasBehavior(string behavior) bool
+        +addTask(Task task) void
+        +removeTask(string taskId) void
+        +generateDailyPlan(Date planDate) Plan
     }
 
     class Task {
@@ -30,17 +39,18 @@ classDiagram
         +string description
         +string category
         +DateTime dueTime
+        +int durationMinutes
+        +int priority
         +bool completed
-        +addTask() void
-        +editTask() void
-        +removeTask() void
+        +edit() void
+        +markCompleted() void
     }
 
     class Plan {
         +string planId
         +Date date
         +string rationale
-        +generateDailyPlan() Plan
+        +Task[] tasks
         +explainReasons() string
     }
 
@@ -53,7 +63,14 @@ classDiagram
         +validate(Plan plan) bool
     }
 
+    class TimeWindow {
+        +DateTime start
+        +DateTime end
+    }
+
     Owner "1" --> "*" Pet : owns
+    Pet "1" --> "*" Task : backlog
     Pet "1" --> "*" Plan : hasPlan
-    Plan "1" --> "*" Task : includes
     Pet "1" --> "1" Constraints : constrainedBy
+    Plan "1" --> "*" Task : includes
+    Constraints "1" --> "*" TimeWindow : availableTimes
