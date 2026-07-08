@@ -94,12 +94,20 @@ The scheduling "brain" is `Pet.generate_daily_plan`, which runs four stages: fil
 
 ## 📸 Demo Walkthrough
 
+Featers
+- Sorting: task are ordered choronologically by due time
+- Filtering: get all task for one pet 
+- Conflict warnings: if two task aare overllapping it will get flagged
+- Constraint-aware planning: plans around your constraints
+
+
 Describe your app in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Add in your personal info
+2. Add your pet info
+3. Add constraints and task for your pet
+4. Repeat this with each pet
+5. Generate a daily plan!
+6. View the plan and edit if needed
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->![Task and consttraints portion](image.png)

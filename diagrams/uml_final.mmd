@@ -1,0 +1,104 @@
+classDiagram
+    %% PawPal+ — final class diagram, matched to pawpal_system.py.
+    %% Reflects the classes, methods, and relationships as actually built.
+
+    class Owner {
+        +string owner_id
+        +string name
+        +string email
+        +string phone
+        +Pet[] pets
+        +create_profile() void
+        +update_profile(changes) void
+        +add_pet(Pet pet) void
+        +remove_pet(string pet_id) void
+        +all_tasks() Task[]
+        +tasks_for_pet(string pet_name) Task[]
+        +detect_conflicts(Date plan_date) string[]
+    }
+
+    class Pet {
+        +string pet_id
+        +string name
+        +string species
+        +string breed
+        +int age
+        +float weight
+        +string[] behaviors
+        +Task[] tasks
+        +Plan[] plans
+        +Constraints constraints
+        +create_profile() void
+        +update_profile(changes) void
+        +has_behavior(string behavior) bool
+        +add_task(Task task) void
+        +edit_task(string task_id, changes) void
+        +remove_task(string task_id) void
+        +complete_task(string task_id, Date as_of) Task
+        +generate_daily_plan(Date plan_date) Plan
+        -_build_rationale(Task[] selected, int candidate_count, string[] priority_order) string
+    }
+
+    class Task {
+        +string task_id
+        +string title
+        +string description
+        +string category
+        +DateTime due_time
+        +int duration_minutes
+        +int priority
+        +bool completed
+        +string recurrence
+        +edit(changes) void
+        +is_recurring() bool
+        +next_occurrence(Date as_of) Task
+        +mark_completed(Date as_of) Task
+        +end_time() DateTime
+        +conflicts_with(Task other) bool
+        +sort_by_time(Task[] tasks)$ Task[]
+    }
+
+    class Plan {
+        +string plan_id
+        +Date date
+        +string rationale
+        +Task[] tasks
+        +Task[] selection_order
+        +string[] warnings
+        +explain_reasons() string
+    }
+
+    class Constraints {
+        +string constraint_id
+        +int max_daily_tasks
+        +string[] priorities
+        +TimeWindow[] available_times
+        +float budget
+        +validate(Plan plan) bool
+    }
+
+    class TimeWindow {
+        +DateTime start
+        +DateTime end
+        +duration_minutes() int
+        +contains(DateTime moment) bool
+    }
+
+    %% Module-level helpers (free functions, not methods) used by the planner
+    %% and by Owner/Pet conflict detection.
+    class scheduling_helpers {
+        <<module>>
+        +detect_time_conflicts(tuple[string, Task][] labeled_tasks) string[]
+        -_conflict_message(Task task_a, Task task_b, string label_a, string label_b) string
+        +RECURRENCE_DELTAS dict
+    }
+
+    Owner "1" --> "*" Pet : owns
+    Pet "1" --> "*" Task : backlog
+    Pet "1" --> "*" Plan : hasPlan
+    Pet "1" --> "0..1" Constraints : constrainedBy
+    Plan "1" --> "*" Task : includes
+    Constraints "1" --> "*" TimeWindow : availableTimes
+    Pet ..> scheduling_helpers : detect_time_conflicts
+    Owner ..> scheduling_helpers : detect_time_conflicts
+    Task ..> scheduling_helpers : RECURRENCE_DELTAS
