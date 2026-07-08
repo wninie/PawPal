@@ -30,12 +30,16 @@ One change wwwas that initially the onwer.pet had no pet list even though the UM
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
+Some constraints for my scheduler is time. A task is a condidite if its due on the day of the plan and if the pet owner has available time for it. 
 - How did you decide which constraints mattered most?
+I just thought about what I would like as an owner, as important is the task is, it is not do-able if you are not available!
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
+A tradeoff my schedule makes is that if there are two task that overlap in time, the scheduler will flag and warn the user but still keep the task in the plan. Thus, the task does not automatically drop or do anthing. 
 - Why is that tradeoff reasonable for this scenario?
+I think it is reasonable because the user gets to choose which task to do or how they would like to prioritize the two task.
 
 ---
 

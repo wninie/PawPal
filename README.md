@@ -78,14 +78,14 @@ Sample test output:
 
 ## 📐 Smarter Scheduling
 
-> Fill in once you've implemented scheduling logic.
+The scheduling "brain" is `Pet.generate_daily_plan`, which runs four stages: filter → sort → cap → detect conflicts. Each stage maps to the methods below.
 
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
-| Task sorting | | e.g., by priority, duration |
-| Filtering | | e.g., skip tasks if time runs out |
-| Conflict handling | | e.g., overlapping time slots |
-| Recurring tasks | | e.g., daily vs. weekly |
+| Task sorting | `Pet.generate_daily_plan` (inner `sort_key`), `Task.sort_by_time` | Selection order ranks by constraint category priority, then task priority (higher first), then earliest due time, then `task_id`. `Task.sort_by_time` re-orders the chosen tasks chronologically for display. |
+| Filtering | `Pet.generate_daily_plan` (inner `is_eligible`), `Owner.tasks_for_pet` | Keeps only uncompleted tasks due on the plan date that fall inside an available `TimeWindow`. Filtering runs *before* the `max_daily_tasks` cap so an out-of-window task can't steal a limited daily slot. |
+| Conflict handling | `detect_time_conflicts`, `Task.conflicts_with`, `Owner.detect_conflicts` | Half-open `[due_time, end_time)` overlap check (back-to-back tasks don't clash; same start always does). Reported as non-fatal warnings — same-pet conflicts per plan, cross-pet conflicts via the owner. |
+| Recurring tasks | `Task.is_recurring`, `Task.next_occurrence`, `Task.mark_completed`, `Pet.complete_task` | Completing a `"daily"`/`"weekly"` task auto-spawns a fresh copy for the next occurrence (completion date + one interval, `RECURRENCE_DELTAS`) and adds it back to the backlog; one-off tasks just mark done. |
 
 ## 📸 Demo Walkthrough
 
